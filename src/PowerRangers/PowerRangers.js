@@ -19,18 +19,15 @@ export default function PowerRangers() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const { cartList, changeCartList } = useContext(cartListContext);
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Powerrangers[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Powerrangers[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Powerrangers[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Powerrangers[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Powerrangers[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Powerrangers[x].img]);
+    }
   }
 
   return (

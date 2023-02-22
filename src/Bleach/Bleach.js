@@ -19,18 +19,15 @@ export default function Bleach() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const { cartList, changeCartList } = useContext(cartListContext);
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Bleach[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Bleach[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Bleach[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Bleach[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Bleach[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Bleach[x].img]);
+    }
   }
   return (
     <>

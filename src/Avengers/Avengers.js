@@ -16,17 +16,15 @@ export default function Avengers() {
   const handleChangeForToogle = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Avengers[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Avengers[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Avengers[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Avengers[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Avengers[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Avengers[x].img]);
+    }
   }
   const [x, setX] = useState(0);
   const handleChange = (event, value) => {

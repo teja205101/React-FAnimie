@@ -20,17 +20,15 @@ export default function Dragonball() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Dragonball[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Dragonball[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Dragonball[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Dragonball[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Dragonball[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Dragonball[x].img]);
+    }
   }
   return (
     <>

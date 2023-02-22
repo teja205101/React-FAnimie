@@ -6,15 +6,15 @@ import Button from "@mui/material/Button";
 function SelectedHeroList() {
   function removeHero(e) {
     const index = cartNameList.indexOf(e.target.value);
-    cartNameList.splice(index, 1);
-    cartImgList.splice(index, 1);
+    const selectedNameList = [...cartNameList];
+    selectedNameList.splice(index, 1);
+    changeNameCartList(selectedNameList);
+    const selectedImgList = [...cartImgList];
+    selectedImgList.splice(index, 1);
+    changeImgCartList(selectedImgList);
   }
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   const cartNameListView = cartNameList.map((hero, ind) => (
     <div className="container" key={ind}>
       {" "}
