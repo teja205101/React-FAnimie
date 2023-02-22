@@ -19,17 +19,15 @@ export default function Avengers() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Naruto[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Naruto[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Naruto[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Naruto[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Naruto[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Naruto[x].img]);
+    }
   }
 
   return (

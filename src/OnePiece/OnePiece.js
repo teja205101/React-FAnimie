@@ -20,18 +20,15 @@ export default function OnePiece() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const { cartList, changeCartList } = useContext(cartListContext);
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
   function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Onepiece[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Onepiece[x].img);
-    changeCartImgList(cartImgList);
+    if (!cartNameList.includes(listOfHeroes.Onepiece[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Onepiece[x].name]);
+    }
+    if (!cartImgList.includes(listOfHeroes.Onepiece[x].img)) {
+      changeImgCartList([...cartImgList, listOfHeroes.Onepiece[x].img]);
+    }
   }
   return (
     <>
