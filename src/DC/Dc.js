@@ -15,26 +15,22 @@ function Dc() {
   const handleChangeForToogle = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const addedHeroes = [];
   const [x, setX] = useState(0);
   const listOfHeroes = useContext(herosContext);
   const handleChange = (event, value) => {
     setX(value - 1);
   };
+  const { displaySnackBar, setDisplaySnackBar } = useContext(heroListLimit);
   const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
     useContext(cartListContext);
-
-  const { displaySnackBar, setDisplaySnackBar } = useContext(heroListLimit);
-
   function cartNumberChange(e) {
+     if (!cartNameList.includes(listOfHeroes.DC[x].name)) {
     changeNameCartList([...cartNameList, listOfHeroes.DC[x].name]);
-    changeImgCartList([...cartImgList, listOfHeroes.DC[x].img]);
+    changeImgCartList([...cartImgList, listOfHeroes.DC[x].img]);}
   }
   const [y, setY] = useState(false);
   useEffect(() => {
-    console.log('cartNameList-------', cartNameList);
     const z = cartNameList.length > 1 ? true : false;
-    console.log('cartNameList-length-------', cartNameList.length);
     setY(z);
     y
       ? setDisplaySnackBar(
@@ -47,7 +43,6 @@ function Dc() {
       : setDisplaySnackBar('');
   }, []);
   useEffect(() => {
-    console.log('cartNameList-------', cartNameList);
     const z = cartNameList.length > 1 ? true : false;
     setY(z);
     y
@@ -60,17 +55,39 @@ function Dc() {
         )
       : setDisplaySnackBar('');
   }, [cartNameList.length, x]);
+  const [nameButtonSelected,changeNameButtonSelected]=useState(false);
+  const [costButtonSelected,changeCostButtonSelected]=useState(false)
+  function nameSort(){
+    listOfHeroes.DC=listOfHeroes.DC.sort((a, b) => a.name.localeCompare(b.name))
+    changeNameButtonSelected(true)
+    changeCostButtonSelected(false)
+  }
+  function costSort(){
+    listOfHeroes.DC=listOfHeroes.DC.sort((a, b) => a.cost-b.cost)
+    changeNameButtonSelected(false)
+    changeCostButtonSelected(true)
+  }
   return (
     <>
-      <h3 style={{ float: 'right' }}>
-        {3 - cartNameList.length} heroe(s) left to select
-      </h3>
-      <br />
+     <ToggleButtonGroup
+        color="primary"
+        exclusive
+        style={{float:'right'}}
+      >
+      <ToggleButton value="Name" onClick={nameSort} 
+      selected={nameButtonSelected ? true :false } >
+        Name
+      </ToggleButton> 
+      <ToggleButton value="Cost" onClick={costSort} 
+      selected={costButtonSelected ? true :false } >
+      Cost
+      </ToggleButton> 
+      </ToggleButtonGroup>
+      <br/>
       <ToggleButtonGroup
         color="primary"
         exclusive
         onChange={handleChangeForToogle}
-        aria-label="Platform"
       >
         <ToggleButton value="Plain View">
           <CropLandscapeIcon />
@@ -79,6 +96,7 @@ function Dc() {
           <ViewCompactIcon />
         </ToggleButton>
       </ToggleButtonGroup>
+    <br/>
       <div>
         {alignment == 'Card View' ? (
           <>

@@ -19,21 +19,42 @@ export default function Avengers() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
-  function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Naruto[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Naruto[x].img);
-    changeCartImgList(cartImgList);
-  }
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
 
+  function cartNumberChange(e) {
+     if (!cartNameList.includes(listOfHeroes.Naruto[x].name)) {
+    changeNameCartList([...cartNameList, listOfHeroes.Naruto[x].name]);
+    changeImgCartList([...cartImgList, listOfHeroes.Naruto[x].img]);}
+  }
+  const [nameButtonSelected,changeNameButtonSelected]=React.useState(false);
+  const [costButtonSelected,changeCostButtonSelected]=React.useState(false)
+  function nameSort(){
+    listOfHeroes.Naruto=listOfHeroes.Naruto.sort((a, b) => a.name.localeCompare(b.name))
+    changeNameButtonSelected(true)
+    changeCostButtonSelected(false)
+  }
+  function costSort(){
+    listOfHeroes.Naruto=listOfHeroes.Naruto.sort((a, b) => a.cost-b.cost)
+    changeNameButtonSelected(false)
+    changeCostButtonSelected(true)
+  }
   return (
     <>
+      <ToggleButtonGroup
+        color="primary"
+        value={alignment}
+        exclusive
+        aria-label="Platform"
+        style={{float:'right'}}
+      >
+      <ToggleButton value="Name" onClick={nameSort} 
+      selected={nameButtonSelected ? true :false }
+      >
+        Name</ToggleButton> 
+      <ToggleButton value="Cost" onClick={costSort} 
+      selected={costButtonSelected ? true :false } >Cost</ToggleButton>
+      </ToggleButtonGroup>
       <ToggleButtonGroup
         color="primary"
         value={alignment}

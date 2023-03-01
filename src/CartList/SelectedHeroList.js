@@ -4,17 +4,19 @@ import { cartListContext } from "../App";
 import Button from "@mui/material/Button";
 
 function SelectedHeroList() {
-  function removeHero(e) {
-    const index = cartNameList.indexOf(e.target.value);
-    cartNameList.splice(index, 1);
-    cartImgList.splice(index, 1);
-  }
   const {
     cartNameList,
     changeNameCartList,
     cartImgList,
-    changeCartImgList,
+    changeImgCartList,
   } = useContext(cartListContext);
+  function removeHero(e) {
+    const indexToRemove = cartNameList.indexOf(e.target.value);
+    const updatedArray = [...cartNameList.slice(0, indexToRemove), ...cartNameList.slice(indexToRemove + 1)];
+    const x=[...cartImgList.slice(0, indexToRemove), ...cartImgList.slice(indexToRemove + 1)];
+    changeNameCartList(updatedArray);
+    changeImgCartList(x)
+  }
   const cartNameListView = cartNameList.map((hero, ind) => (
     <div className="container" key={ind}>
       {" "}
@@ -25,7 +27,7 @@ function SelectedHeroList() {
         style={{ height: 300, width: 300 }}
       />
       <Button
-        onClick={removeHero.bind(this)}
+        onClick={removeHero}
         size="small"
         color="error"
         variant="outlined"

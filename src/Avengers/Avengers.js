@@ -9,41 +9,67 @@ import HeroNormalView from "../HeroNormalView/heroNormalView";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { cartListContext } from "../App";
+import ViewCompactIcon from '@mui/icons-material/ViewCompact';
+import CropLandscapeIcon from '@mui/icons-material/CropLandscape';
 
 export default function Avengers() {
   const listOfHeroes = useContext(herosContext);
+  const [nameButtonSelected,changeNameButtonSelected]=useState(false);
+  const [costButtonSelected,changeCostButtonSelected]=useState(false)
   const [alignment, setAlignment] = React.useState("Plain View");
   const handleChangeForToogle = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
-  function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Avengers[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Avengers[x].img);
-    changeCartImgList(cartImgList);
+  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
+    useContext(cartListContext);
+
+  function cartNumberChange(e) {
+     if (!cartNameList.includes(listOfHeroes.Avengers[x].name)) {
+    changeNameCartList([...cartNameList, listOfHeroes.Avengers[x].name]);
+    changeImgCartList([...cartImgList, listOfHeroes.Avengers[x].img]);}
   }
   const [x, setX] = useState(0);
   const handleChange = (event, value) => {
     setX(value - 1);
   };
+  function nameSort(){
+    listOfHeroes.Avengers=listOfHeroes.Avengers.sort((a, b) => a.name.localeCompare(b.name))
+    changeNameButtonSelected(true)
+    changeCostButtonSelected(false)
+  }
+  function costSort(){
+    listOfHeroes.Avengers=listOfHeroes.Avengers.sort((a, b) => a.cost-b.cost)
+    changeNameButtonSelected(false)
+    changeCostButtonSelected(true)
+  }
   return (
     <>
+    <ToggleButtonGroup
+        color="primary"
+        exclusive
+        style={{float:'right'}}
+      >
+      <ToggleButton value="Name" onClick={nameSort} 
+      selected={nameButtonSelected ? true :false }
+      >
+      Name
+      </ToggleButton> 
+      <ToggleButton value="Cost" onClick={costSort} 
+      selected={costButtonSelected ? true :false } >
+      Cost
+      </ToggleButton>
+      </ToggleButtonGroup>
+      <br/>
       <ToggleButtonGroup
         color="primary"
         value={alignment}
         exclusive
         onChange={handleChangeForToogle}
-        aria-label="Platform"
       >
-        <ToggleButton value="Plain View">Plain View</ToggleButton>
-        <ToggleButton value="Card View">Card View</ToggleButton>
+        <ToggleButton value="Plain View"><CropLandscapeIcon /></ToggleButton>
+        <ToggleButton value="Card View"><ViewCompactIcon /></ToggleButton>
       </ToggleButtonGroup>
+      <br/>
       <div>
         {alignment === "Card View" ? (
           <>

@@ -24,16 +24,41 @@ export default function Dragonball() {
     cartNameList,
     changeNameCartList,
     cartImgList,
-    changeCartImgList,
+    changeImgCartList,
   } = useContext(cartListContext);
-  function cartNumberChange() {
-    cartNameList.push(listOfHeroes.Dragonball[x].name);
-    changeNameCartList(cartNameList);
-    cartImgList.push(listOfHeroes.Dragonball[x].img);
-    changeCartImgList(cartImgList);
+  function cartNumberChange(e) {
+     if (!cartNameList.includes(listOfHeroes.Dragonball[x].name)) {
+    changeNameCartList([...cartNameList, listOfHeroes.Dragonball[x].name]);
+    changeImgCartList([...cartImgList, listOfHeroes.Dragonball[x].img]);}
+  }
+  const [nameButtonSelected,changeNameButtonSelected]=React.useState(false);
+  const [costButtonSelected,changeCostButtonSelected]=React.useState(false)
+  function nameSort(){
+    listOfHeroes.Dragonball=listOfHeroes.Dragonball.sort((a, b) => a.name.localeCompare(b.name))
+    changeNameButtonSelected(true)
+    changeCostButtonSelected(false)
+  }
+  function costSort(){
+    listOfHeroes.Dragonball=listOfHeroes.Dragonball.sort((a, b) => a.cost-b.cost)
+    changeNameButtonSelected(false)
+    changeCostButtonSelected(true)
   }
   return (
     <>
+    <ToggleButtonGroup
+        color="primary"
+        value={alignment}
+        exclusive
+        aria-label="Platform"
+        style={{float:'right'}}
+      >
+      <ToggleButton value="Name" onClick={nameSort} 
+      selected={nameButtonSelected ? true :false }
+      >
+        Name</ToggleButton> 
+      <ToggleButton value="Cost" onClick={costSort} 
+      selected={costButtonSelected ? true :false } >Cost</ToggleButton>
+      </ToggleButtonGroup>
       <ToggleButtonGroup
         color="primary"
         value={alignment}
