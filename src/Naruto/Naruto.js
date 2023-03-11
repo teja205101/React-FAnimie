@@ -19,25 +19,35 @@ export default function Avengers() {
   const handleChange = (event, value) => {
     setX(value - 1);
   };
-  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
-    useContext(cartListContext);
+  const {
+    cartNameList,
+    changeNameCartList,
+    cartImgList,
+    changeImgCartList,
+    cartCostList,
+    changeCostCartList,
+  } = useContext(cartListContext);
 
   function cartNumberChange(e) {
-     if (!cartNameList.includes(listOfHeroes.Naruto[x].name)) {
-    changeNameCartList([...cartNameList, listOfHeroes.Naruto[x].name]);
-    changeImgCartList([...cartImgList, listOfHeroes.Naruto[x].img]);}
+    if (!cartNameList.includes(listOfHeroes.Naruto[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Naruto[x].name]);
+      changeImgCartList([...cartImgList, listOfHeroes.Naruto[x].img]);
+      changeCostCartList([...cartCostList, listOfHeroes.DC[x].cost]);
+    }
   }
-  const [nameButtonSelected,changeNameButtonSelected]=React.useState(false);
-  const [costButtonSelected,changeCostButtonSelected]=React.useState(false)
-  function nameSort(){
-    listOfHeroes.Naruto=listOfHeroes.Naruto.sort((a, b) => a.name.localeCompare(b.name))
-    changeNameButtonSelected(true)
-    changeCostButtonSelected(false)
+  const [nameButtonSelected, changeNameButtonSelected] = React.useState(false);
+  const [costButtonSelected, changeCostButtonSelected] = React.useState(false);
+  function nameSort() {
+    listOfHeroes.Naruto = listOfHeroes.Naruto.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    changeNameButtonSelected(true);
+    changeCostButtonSelected(false);
   }
-  function costSort(){
-    listOfHeroes.Naruto=listOfHeroes.Naruto.sort((a, b) => a.cost-b.cost)
-    changeNameButtonSelected(false)
-    changeCostButtonSelected(true)
+  function costSort() {
+    listOfHeroes.Naruto = listOfHeroes.Naruto.sort((a, b) => a.cost - b.cost);
+    changeNameButtonSelected(false);
+    changeCostButtonSelected(true);
   }
   return (
     <>
@@ -46,14 +56,22 @@ export default function Avengers() {
         value={alignment}
         exclusive
         aria-label="Platform"
-        style={{float:'right'}}
+        style={{ float: "right" }}
       >
-      <ToggleButton value="Name" onClick={nameSort} 
-      selected={nameButtonSelected ? true :false }
-      >
-        Name</ToggleButton> 
-      <ToggleButton value="Cost" onClick={costSort} 
-      selected={costButtonSelected ? true :false } >Cost</ToggleButton>
+        <ToggleButton
+          value="Name"
+          onClick={nameSort}
+          selected={nameButtonSelected ? true : false}
+        >
+          Name
+        </ToggleButton>
+        <ToggleButton
+          value="Cost"
+          onClick={costSort}
+          selected={costButtonSelected ? true : false}
+        >
+          Cost
+        </ToggleButton>
       </ToggleButtonGroup>
       <ToggleButtonGroup
         color="primary"

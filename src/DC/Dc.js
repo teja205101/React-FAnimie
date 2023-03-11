@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Pagination from '@mui/material/Pagination';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { cartListContext, heroListLimit, herosContext } from '../App';
-import HeroNormalView from '../HeroNormalView/heroNormalView';
-import DcCardView from '../DC/DcCardView';
-import ViewCompactIcon from '@mui/icons-material/ViewCompact';
-import CropLandscapeIcon from '@mui/icons-material/CropLandscape';
+import React, { useState, useContext, useEffect } from "react";
+import Pagination from "@mui/material/Pagination";
+import AddIcon from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { cartListContext, heroListLimit, herosContext } from "../App";
+import HeroNormalView from "../HeroNormalView/heroNormalView";
+import DcCardView from "../DC/DcCardView";
+import ViewCompactIcon from "@mui/icons-material/ViewCompact";
+import CropLandscapeIcon from "@mui/icons-material/CropLandscape";
 
 function Dc() {
-  const [alignment, setAlignment] = React.useState('Plain View');
+  const [alignment, setAlignment] = React.useState("Plain View");
   const handleChangeForToogle = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -21,12 +21,20 @@ function Dc() {
     setX(value - 1);
   };
   const { displaySnackBar, setDisplaySnackBar } = useContext(heroListLimit);
-  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
-    useContext(cartListContext);
+  const {
+    cartNameList,
+    changeNameCartList,
+    cartImgList,
+    changeImgCartList,
+    cartCostList,
+    changeCostCartList,
+  } = useContext(cartListContext);
   function cartNumberChange(e) {
-     if (!cartNameList.includes(listOfHeroes.DC[x].name)) {
-    changeNameCartList([...cartNameList, listOfHeroes.DC[x].name]);
-    changeImgCartList([...cartImgList, listOfHeroes.DC[x].img]);}
+    if (!cartNameList.includes(listOfHeroes.DC[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.DC[x].name]);
+      changeImgCartList([...cartImgList, listOfHeroes.DC[x].img]);
+      changeCostCartList([...cartCostList, listOfHeroes.DC[x].cost]);
+    }
   }
   const [y, setY] = useState(false);
   useEffect(() => {
@@ -35,12 +43,12 @@ function Dc() {
     y
       ? setDisplaySnackBar(
           <>
-            <h1 style={{ color: 'red' }}>
+            <h1 style={{ color: "red" }}>
               You have {cartNameList.length} reached max Heroes for the Team
             </h1>
-          </>,
+          </>
         )
-      : setDisplaySnackBar('');
+      : setDisplaySnackBar("");
   }, []);
   useEffect(() => {
     const z = cartNameList.length > 1 ? true : false;
@@ -48,42 +56,46 @@ function Dc() {
     y
       ? setDisplaySnackBar(
           <>
-            <h1 style={{ color: 'red' }}>
+            <h1 style={{ color: "red" }}>
               You have {cartNameList.length} reached max Heroes for the Team
             </h1>
-          </>,
+          </>
         )
-      : setDisplaySnackBar('');
+      : setDisplaySnackBar("");
   }, [cartNameList.length, x]);
-  const [nameButtonSelected,changeNameButtonSelected]=useState(false);
-  const [costButtonSelected,changeCostButtonSelected]=useState(false)
-  function nameSort(){
-    listOfHeroes.DC=listOfHeroes.DC.sort((a, b) => a.name.localeCompare(b.name))
-    changeNameButtonSelected(true)
-    changeCostButtonSelected(false)
+  const [nameButtonSelected, changeNameButtonSelected] = useState(false);
+  const [costButtonSelected, changeCostButtonSelected] = useState(false);
+  function nameSort() {
+    listOfHeroes.DC = listOfHeroes.DC.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    changeNameButtonSelected(true);
+    changeCostButtonSelected(false);
   }
-  function costSort(){
-    listOfHeroes.DC=listOfHeroes.DC.sort((a, b) => a.cost-b.cost)
-    changeNameButtonSelected(false)
-    changeCostButtonSelected(true)
+  function costSort() {
+    listOfHeroes.DC = listOfHeroes.DC.sort((a, b) => a.cost - b.cost);
+    changeNameButtonSelected(false);
+    changeCostButtonSelected(true);
   }
   return (
     <>
-     <ToggleButtonGroup
-        color="primary"
-        exclusive
-        style={{float:'right'}}
-      >
-      <ToggleButton value="Name" onClick={nameSort} 
-      selected={nameButtonSelected ? true :false } >
-        Name
-      </ToggleButton> 
-      <ToggleButton value="Cost" onClick={costSort} 
-      selected={costButtonSelected ? true :false } >
-      Cost
-      </ToggleButton> 
+      <ToggleButtonGroup color="primary" exclusive style={{ float: "right" }}>
+        <ToggleButton
+          value="Name"
+          onClick={nameSort}
+          selected={nameButtonSelected ? true : false}
+        >
+          Name
+        </ToggleButton>
+        <ToggleButton
+          value="Cost"
+          onClick={costSort}
+          selected={costButtonSelected ? true : false}
+        >
+          Cost
+        </ToggleButton>
       </ToggleButtonGroup>
-      <br/>
+      <br />
       <ToggleButtonGroup
         color="primary"
         exclusive
@@ -96,9 +108,9 @@ function Dc() {
           <ViewCompactIcon />
         </ToggleButton>
       </ToggleButtonGroup>
-    <br/>
+      <br />
       <div>
-        {alignment == 'Card View' ? (
+        {alignment == "Card View" ? (
           <>
             <DcCardView />
           </>
@@ -116,7 +128,7 @@ function Dc() {
                 fontSize: 20,
               }}
             >
-              <div style={{ textAlign: 'center' }}>Add to collection</div>
+              <div style={{ textAlign: "center" }}>Add to collection</div>
               <AddIcon />
             </Button>
             <Pagination
@@ -124,7 +136,7 @@ function Dc() {
               onChange={handleChange}
               showFirstButton
               showLastButton
-              style={{ bottom: 0, float: 'right', backgroundColor: 'red' }}
+              style={{ bottom: 0, float: "right", backgroundColor: "red" }}
             />
           </>
         )}

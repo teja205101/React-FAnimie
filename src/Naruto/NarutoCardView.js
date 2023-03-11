@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cartListContext,herosContext } from "../App";
+import { cartListContext, herosContext } from "../App";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,16 +8,23 @@ import fakeData from "../Fixtures/Heroes descriptions";
 
 function CustomCard() {
   var listOfHeroes = React.useContext(herosContext);
-  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
-    React.useContext(cartListContext);
+  const {
+    cartNameList,
+    changeNameCartList,
+    cartImgList,
+    changeImgCartList,
+    cartCostList,
+    changeCostCartList,
+  } = React.useContext(cartListContext);
   const handleClick = (cardValue) => {
     if (!cartNameList.includes(cardValue.name)) {
       changeNameCartList([...cartNameList, cardValue.name]);
     }
-      if (!cartImgList.includes(cardValue.img)) {
+    if (!cartImgList.includes(cardValue.img)) {
       changeImgCartList([...cartImgList, cardValue.img]);
+      changeCostCartList([...cartCostList, cardValue.cost]);
     }
-  }
+  };
   const card = listOfHeroes.Naruto.map((hero, index) => (
     <>
       <Card
@@ -30,7 +37,10 @@ function CustomCard() {
           float: "left",
         }}
       >
-        <h3>{hero.name}</h3>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <h3>{hero.name}</h3>
+          <h3 style={{ paddingLeft: 300 }}>$ {hero.cost}M</h3>
+        </div>
         <CardMedia
           component="img"
           height="190"
@@ -50,7 +60,7 @@ function CustomCard() {
           color="primary"
           variant="outlined"
           fullWidth="true"
-          onClick={()=>handleClick(hero)}
+          onClick={() => handleClick(hero)}
           style={{
             paddingLeft: 5,
             fontSize: 20,

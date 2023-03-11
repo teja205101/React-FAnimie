@@ -119,12 +119,35 @@ export default function FullWidthTabs() {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <h1>Welcome Recruiter</h1>
-            <img
-              src="https://i.pinimg.com/originals/b5/06/f7/b506f7f832c87c7e0a256c43f267b48e.jpg"
-              alt="All heroes"
-              style={{ width: 1650, height: 750 }}
-            />
+            <>
+              <h1>Welcome Recruiter</h1>
+              <img
+                src="https://i.pinimg.com/originals/b5/06/f7/b506f7f832c87c7e0a256c43f267b48e.jpg"
+                alt="All heroes"
+                style={{ width: 1650, height: 750 }}
+                usemap="#image-map"
+              />
+              <map name="image-map">
+                <area
+                  shape="rect"
+                  coords="10,10,100,100"
+                  href="#"
+                  title="Name 1"
+                />
+                <area
+                  shape="circle"
+                  coords="200,200,50"
+                  href="#"
+                  title="Name 2"
+                />
+                <area
+                  shape="poly"
+                  coords="300,100,400,150,350,200,250,180"
+                  href="#"
+                  title="Name 3"
+                />
+              </map>
+            </>
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <Dc />

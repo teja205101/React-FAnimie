@@ -20,40 +20,58 @@ export default function Bleach() {
     setX(value - 1);
   };
   const { cartList, changeCartList } = useContext(cartListContext);
-  const { cartNameList, changeNameCartList, cartImgList, changeImgCartList } =
-    useContext(cartListContext);
+  const {
+    cartNameList,
+    changeNameCartList,
+    cartImgList,
+    changeImgCartList,
+    cartCostList,
+    changeCostCartList,
+  } = useContext(cartListContext);
   function cartNumberChange(e) {
-     if (!cartNameList.includes(listOfHeroes.Bleach[x].name)) {
-    changeNameCartList([...cartNameList, listOfHeroes.Bleach[x].name]);
-    changeImgCartList([...cartImgList, listOfHeroes.Bleach[x].img]);}
+    if (!cartNameList.includes(listOfHeroes.Bleach[x].name)) {
+      changeNameCartList([...cartNameList, listOfHeroes.Bleach[x].name]);
+      changeImgCartList([...cartImgList, listOfHeroes.Bleach[x].img]);
+      changeCostCartList([...cartCostList, listOfHeroes.DC[x].cost]);
+    }
   }
-  const [nameButtonSelected,changeNameButtonSelected]=React.useState(false);
-  const [costButtonSelected,changeCostButtonSelected]=React.useState(false)
-  function nameSort(){
-    listOfHeroes.Bleach=listOfHeroes.Bleach.sort((a, b) => a.name.localeCompare(b.name))
-    changeNameButtonSelected(true)
-    changeCostButtonSelected(false)
+  const [nameButtonSelected, changeNameButtonSelected] = React.useState(false);
+  const [costButtonSelected, changeCostButtonSelected] = React.useState(false);
+  function nameSort() {
+    listOfHeroes.Bleach = listOfHeroes.Bleach.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    changeNameButtonSelected(true);
+    changeCostButtonSelected(false);
   }
-  function costSort(){
-    listOfHeroes.Bleach=listOfHeroes.Bleach.sort((a, b) => a.cost-b.cost)
-    changeNameButtonSelected(false)  
-    changeCostButtonSelected(true)
+  function costSort() {
+    listOfHeroes.Bleach = listOfHeroes.Bleach.sort((a, b) => a.cost - b.cost);
+    changeNameButtonSelected(false);
+    changeCostButtonSelected(true);
   }
   return (
     <>
-     <ToggleButtonGroup
+      <ToggleButtonGroup
         color="primary"
         value={alignment}
         exclusive
         aria-label="Platform"
-        style={{float:'right'}}
+        style={{ float: "right" }}
       >
-      <ToggleButton value="Name" onClick={nameSort} 
-      selected={nameButtonSelected ? true :false }
-      >
-        Name</ToggleButton> 
-      <ToggleButton value="Cost" onClick={costSort} 
-      selected={costButtonSelected ? true :false } >Cost</ToggleButton>
+        <ToggleButton
+          value="Name"
+          onClick={nameSort}
+          selected={nameButtonSelected ? true : false}
+        >
+          Name
+        </ToggleButton>
+        <ToggleButton
+          value="Cost"
+          onClick={costSort}
+          selected={costButtonSelected ? true : false}
+        >
+          Cost
+        </ToggleButton>
       </ToggleButtonGroup>
       <ToggleButtonGroup
         color="primary"
