@@ -122,7 +122,7 @@ function Dc() {
               onClick={cartNumberChange}
               value={listOfHeroes.DC[x].name}
               variant="outlined"
-              fullWidth="true"
+              fullWidth={true}
               style={{
                 paddingLeft: 580,
                 fontSize: 20,

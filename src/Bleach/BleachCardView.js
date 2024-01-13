@@ -59,7 +59,7 @@ function CustomCard() {
         <Button
           color="primary"
           variant="outlined"
-          fullWidth="true"
+          fullWidth={true}
           onClick={() => handleClick(hero)}
           style={{
             paddingLeft: 5,

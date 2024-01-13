@@ -97,7 +97,7 @@ export default function OnePiece() {
             <Button
               color="primary"
               variant="outlined"
-              fullWidth="true"
+              fullWidth={true}
               onClick={cartNumberChange}
               style={{
                 paddingLeft: 580,

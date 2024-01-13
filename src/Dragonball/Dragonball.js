@@ -96,7 +96,7 @@ export default function Dragonball() {
             <Button
               color="primary"
               variant="outlined"
-              fullWidth="true"
+              fullWidth={true}
               onClick={cartNumberChange}
               style={{
                 paddingLeft: 580,
