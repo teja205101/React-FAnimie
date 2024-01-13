@@ -6,7 +6,6 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Dc from "./DC/Dc";
 import Avengers from "./Avengers/Avengers";
@@ -61,8 +60,7 @@ function a11yProps(index) {
 }
 
 export default function FullWidthTabs() {
-  const { cartNameList, changeNameCartList, cartImgList, changeCartImgList } =
-    useContext(cartListContext);
+  const { cartNameList } = useContext(cartListContext);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -125,18 +123,21 @@ export default function FullWidthTabs() {
                   coords="10,10,100,100"
                   href="#"
                   title="Name 1"
+                  alt="Name 1"
                 />
                 <area
                   shape="circle"
                   coords="200,200,50"
                   href="#"
                   title="Name 2"
+                  alt="Name 2"
                 />
                 <area
                   shape="poly"
                   coords="300,100,400,150,350,200,250,180"
                   href="#"
                   title="Name 3"
+                  alt="Name 3"
                 />
               </map>
             </>
