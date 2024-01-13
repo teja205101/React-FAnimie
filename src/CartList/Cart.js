@@ -27,11 +27,10 @@ function SelectedHeroList() {
     changeNameCartList(updatedArray);
     changeImgCartList(updatedImgArray);
     const updatedCostArray = [
-    ...cartCostList.slice(0, indexToRemove),
-    ...cartCostList.slice(indexToRemove + 1),
+      ...cartCostList.slice(0, indexToRemove),
+      ...cartCostList.slice(indexToRemove + 1),
     ];
     changeCostCartList(updatedCostArray);
-
   }
   const cartNameListView = cartNameList.map((hero, ind) => (
     <div style={{ display: "flex", flexDirection: "row", paddingBottom: 50 }}>
@@ -47,7 +46,7 @@ function SelectedHeroList() {
       />
       <div style={{ paddingLeft: 300, paddingTop: 110 }}>
         <Button
-          onClick={()=>removeHero(ind)}
+          onClick={() => removeHero(ind)}
           size="small"
           color="error"
           variant="outlined"
@@ -76,25 +75,25 @@ function SelectedHeroList() {
     changeCostButtonSelected(false);
   }
   function costSort() {
-  const heroes = cartNameList.map((name, index) => ({
-    name,
-    cost: cartCostList[index],
-    img: cartImgList[index]
-  }));
+    const heroes = cartNameList.map((name, index) => ({
+      name,
+      cost: cartCostList[index],
+      img: cartImgList[index],
+    }));
 
-  heroes.sort((a, b) => a.cost - b.cost);
+    heroes.sort((a, b) => a.cost - b.cost);
 
-  const sortedNameList = heroes.map(hero => hero.name);
-  const sortedImgList = heroes.map(hero => hero.img);
-  const sortedCostList = heroes.map(hero => hero.cost);
+    const sortedNameList = heroes.map((hero) => hero.name);
+    const sortedImgList = heroes.map((hero) => hero.img);
+    const sortedCostList = heroes.map((hero) => hero.cost);
 
-  changeNameCartList(sortedNameList);
-  changeImgCartList(sortedImgList);
-  changeCostCartList(sortedCostList);
+    changeNameCartList(sortedNameList);
+    changeImgCartList(sortedImgList);
+    changeCostCartList(sortedCostList);
 
-  changeNameButtonSelected(false);
-  changeCostButtonSelected(true);
-}
+    changeNameButtonSelected(false);
+    changeCostButtonSelected(true);
+  }
 
   return (
     <div className="container">

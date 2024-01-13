@@ -21,7 +21,7 @@ import Badge from "@mui/material/Badge";
 import { useContext } from "react";
 import { cartListContext } from "../src/App";
 import "../src/Tab.css";
-import SelectedHeroList from "../src/CartList/SelectedHeroList";
+import SelectedHeroList from "./CartList/Cart";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -42,11 +42,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 7 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 7 }}>{children}</Box>}
     </div>
   );
 }
@@ -65,12 +61,8 @@ function a11yProps(index) {
 }
 
 export default function FullWidthTabs() {
-  const {
-    cartNameList,
-    changeNameCartList,
-    cartImgList,
-    changeCartImgList,
-  } = useContext(cartListContext);
+  const { cartNameList, changeNameCartList, cartImgList, changeCartImgList } =
+    useContext(cartListContext);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -125,7 +117,7 @@ export default function FullWidthTabs() {
                 src="https://i.pinimg.com/originals/b5/06/f7/b506f7f832c87c7e0a256c43f267b48e.jpg"
                 alt="All heroes"
                 style={{ width: 1650, height: 750 }}
-                usemap="#image-map"
+                // usemap="#image-map"
               />
               <map name="image-map">
                 <area
